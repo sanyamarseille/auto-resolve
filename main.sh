@@ -15,9 +15,12 @@ do
     fi
     result=`dig @${ns} ${name} +short`
     if [ -n "${result}" ]; then
-        echo "${name},${result}" >> ${data_to}
+        if [ -z "${result}" ]; then
+            :
+        else
+            echo "${name},${result}" >> ${data_to}
+        fi
     else
         echo "${name},N/A" >> ${data_to}
     fi
-#    `sleep 1`
 done < ${data_from}
